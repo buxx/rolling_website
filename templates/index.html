@@ -1,0 +1,99 @@
+{% import "_macros.html" as macros %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Rolling{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% include "_variables.html" %}
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="/juice.css">
+    {% block head %}
+    {% endblock head %}
+</head>
+
+<body>
+    {% block header %}
+
+    <header class="pos-absolute" style="background-color: transparent">
+        {{ macros::render_header() }}
+    </header>
+
+    <div class="hero">
+        {% block hero %}
+        <section class="text-center">
+            <h1 class="heading-text" style="font-size: 50px">
+                Rolling engine
+            </h1>
+            <h3 class="title-text">
+                <b>Rolling</b> est un moteur de jeu multijoueur de survie coopératif dans un monde persistant
+            </h3>
+            <p>
+                Pour <b>jouer</b>, choisissez votre <a href="/worlds/">Monde</a>
+            </p>
+        </section>
+
+        <img class="hero-image" style="width: 50%" src="/ingame1.gif">
+
+        {% endblock hero %}
+    </div>
+
+    {% endblock header %}
+
+    <main>
+        <div class="content text">
+            {% block content %}
+            {{ section.content | safe }}
+            {% endblock content %}
+        </div>
+
+        {% block sidebar %}
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer>
+        <small class="subtext">
+            See other projects at <a href="https://bux.fr">bux.fr</a>
+        </small>
+    </footer>
+    {% endblock footer %}
+</body>
+<script>
+    function highlightNav(heading) {
+        let pathname = location.pathname;
+        document.querySelectorAll(".toc a").forEach((item) => {
+            item.classList.remove("active");
+        });
+        document.querySelector(".toc a[href$='" + pathname + "#" + heading + "']").classList.add("active");
+    }
+
+    let currentHeading = "";
+    window.onscroll = function () {
+        let h = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
+        let elementArr = [];
+
+        h.forEach(item => {
+            if (item.id !== "") {
+                elementArr[item.id] = item.getBoundingClientRect().top;
+            }
+        });
+        elementArr.sort();
+        for (let key in elementArr) {
+            if (!elementArr.hasOwnProperty(key)) {
+                continue;
+            }
+            if (elementArr[key] > 0 && elementArr[key] < 300) {
+                if (currentHeading !== key) {
+                    highlightNav(key);
+                    currentHeading = key;
+                }
+                break;
+            }
+        }
+    }
+</script>
+
+</html>

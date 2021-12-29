@@ -12,3 +12,7 @@ weight = 1
 * **Gameplay** : Survie, Gestion, Coopération
 * **Univers** : Dépend du monde sur lequel vous jouez
 * **Durée d'une partie** : Quelque années
+
+## En savoir plus
+
+* [Présentation du projet (2020)](https://linuxfr.org/users/bux-2/journaux/rolling-un-nouveau-jeu-libre)
